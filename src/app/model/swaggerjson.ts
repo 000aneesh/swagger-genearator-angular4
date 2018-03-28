@@ -8,9 +8,9 @@ export class SwaggerJSON {
 
     schemes: string;
 
-    consumes: string = "";
+    consumes: Array<string> = new Array<string>();
 
-    produces: string = "";
+    produces: Array<string> = new Array<string>();
 
     basePath: string = "/";
 

@@ -72,7 +72,7 @@
 
       <td>
 
-        <select id="mimeType" #mimeType="ngModel" class="form-control" [(ngModel)]="swaggerJSON.consumes" name="mimeType"> 
+        <select id="mimeType" #mimeType="ngModel" class="form-control" [(ngModel)]="swaggerConsumes" name="mimeType"> 
 
                            <option selected="" value="">Select One</option> 
 
@@ -94,7 +94,7 @@
 
       <td>
 
-        <select id="mimeType" #mimeType="ngModel" class="form-control" [(ngModel)]="swaggerJSON.produces" name="mimeType"> 
+        <select id="mimeType" #mimeType="ngModel" class="form-control" [(ngModel)]="swaggerProduces" name="mimeType"> 
 
                            <option selected="" value="">Select One</option> 
 
@@ -120,7 +120,7 @@
 
     <tr *ngFor="let defn of definitionList; let i = index">
 
-      <td><label>{{i+1}} Class Defenition: </label></td>
+      <td><label>({{i+1}}) Class Defenition: </label></td>
 
       <td><input placeholder="Class Name" />
 
@@ -128,7 +128,7 @@
 
           <tr *ngFor="let prop of defn.properties; let j = index">
 
-            <td><label>{{j+1}} Attribute Name: </label></td>
+            <td><label>({{j+1}}) Attribute Name: </label></td>
 
             <td><input placeholder="Attribute Name" /></td>
 
@@ -167,5 +167,11 @@
     </tr>
 
   </table>
+
+</div>
+
+<div>
+  <br>
+<span id="finalJson">{{finalJSON}}</span>
 
 </div>

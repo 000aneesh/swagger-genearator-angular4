@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { SwaggerJSON, Definitions, Definition, Property } from '../model/swaggerjson';
 
- 
+
 
 @Component({
 
@@ -22,7 +22,7 @@ import { SwaggerJSON, Definitions, Definition, Property } from '../model/swagger
 
 export class VehicleListComponent implements OnInit {
 
- 
+
 
   vehicles: Vehicle[];
 
@@ -38,9 +38,15 @@ export class VehicleListComponent implements OnInit {
 
   definitionList = Array<any>();
 
-// definitionObject = {definition : new Definition(), properties : new Array<Property>(new Property())};
+  finalJSON: string;
 
- 
+  swaggerConsumes:string;
+
+  swaggerProduces:string;
+
+  // definitionObject = {definition : new Definition(), properties : new Array<Property>(new Property())};
+
+
 
   constructor(private vehicleService: VehicleService) {
 
@@ -52,31 +58,46 @@ export class VehicleListComponent implements OnInit {
 
   }
 
- 
+
 
   ngOnInit() {
 
   }
 
- 
+
 
   onSelect(vehicle: Vehicle) { this.selectedVehicle = vehicle; }
 
- 
 
-  generateJSON(swaggerJSON) {
 
-    console.log(JSON.stringify(this.swaggerJSON));
+  generateJSON(swaggerjson) {
+    this.finalJSON = '';
+    var swaggerJsonClone = Object.assign({}, swaggerjson);
+    var isValid = this.checkJSON(swaggerJsonClone);
+    if (isValid) {
+      swaggerJsonClone.host = swaggerJsonClone.host && swaggerJsonClone.host.trim() ? swaggerJsonClone.host.trim() : undefined;
+      swaggerJsonClone.basePath = swaggerJsonClone.basePath && swaggerJsonClone.basePath.trim() ? swaggerJsonClone.basePath.trim() : '/';
+      swaggerJsonClone.consumes = this.swaggerConsumes ? swaggerJsonClone.consumes.push(this.swaggerConsumes) : [];
+      swaggerJsonClone.produces = this.swaggerProduces ? swaggerJsonClone.produces.push(this.swaggerProduces) : [];
+      this.finalJSON = JSON.stringify(swaggerJsonClone);
+      console.log(this.finalJSON);
+    }
 
   }
 
- 
+
+
+  checkJSON = (swaggerJsonClone: any): boolean => {
+    var check: boolean = (swaggerJsonClone && swaggerJsonClone.info && swaggerJsonClone.info.title
+      && swaggerJsonClone.info.version) ? true : false;
+    return check;
+  }
 
   definitionCheckEvent(event) {
 
     if (event && event.target && event.target.checked) {
 
-      var definitionObject = {definition : new Definition(), properties : new Array<Property>(new Property())};
+      var definitionObject = { definition: new Definition(), properties: new Array<Property>(new Property()) };
 
       this.definitionList = new Array<any>(definitionObject);
 
@@ -88,25 +109,25 @@ export class VehicleListComponent implements OnInit {
 
   }
 
- 
+
 
   addDefinition(event) {
 
-  /*  var definitionObj = new Definition();
+    /*  var definitionObj = new Definition();
+  
+      var propertList = new Array<Property>();
+  
+      definitionObj.properties
+  
+     // definitionObj.properties*/
 
-    var propertList = new Array<Property>();
-
-    definitionObj.properties
-
-   // definitionObj.properties*/
-
-   var definitionObject = {definition : new Definition(), properties : new Array<Property>(new Property())};
+    var definitionObject = { definition: new Definition(), properties: new Array<Property>(new Property()) };
 
     this.definitionList.push(definitionObject);
 
   }
 
- 
+
 
   removeDefinition(event) {
 
@@ -124,7 +145,7 @@ export class VehicleListComponent implements OnInit {
 
   }
 
- 
+
 
   addAttribute(event) {
 
@@ -136,7 +157,7 @@ export class VehicleListComponent implements OnInit {
 
   }
 
- 
+
 
   removeAttribute(event) {
 
@@ -154,6 +175,6 @@ export class VehicleListComponent implements OnInit {
 
   }
 
- 
+
 
 }
