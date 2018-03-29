@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
- 
+
 
 const vehicles = [
 
@@ -42,196 +42,202 @@ const vehicles = [
 
 ];
 
- 
 
-const mimeTypes = [
+
+const mimetypes = [
 
   {
 
-    mimeType: '*/*'
+    type: '*/*'
 
   },
 
   {
 
-    mimeType: 'application/json'
+    type: 'application/json'
 
   },
 
   {
 
-    mimeType: 'application/xml'
+    type: 'application/xml'
 
   },
 
   {
 
-    mimeType: 'application/x-www-form-urlencoded'
+    type: 'application/x-www-form-urlencoded'
 
   },
 
   {
 
-    mimeType: 'multipart/form-data'
+    type: 'multipart/form-data'
 
   },
 
   {
 
-    mimeType: 'text/plain; charset=utf-8'
+    type: 'text/plain; charset=utf-8'
 
   },
 
   {
 
-    mimeType: 'text/html'
+    type: 'text/html'
 
   },
 
   {
 
-    mimeType: 'application/pdf'
+    type: 'application/pdf'
 
   },
 
   {
 
-    mimeType: 'image/png'
+    type: 'image/png'
 
   }
 
 ];
 
 const objectTypes = [
-
-    {
-
+  {
     value: 'string',
-
     default: '',
-
     description: 'A JSON string'
-
   },
-
   {
-
     value: 'array',
-
     default: '',
-
     description: 'A JSON array'
-
   },
-
   {
-
     value: 'boolean',
-
     default: '',
-
     description: 'A JSON boolean'
-
   },
-
   {
-
     value: 'integer',
-
     default: '',
-
     description: 'A JSON number without a fraction or exponent part'
-
   },
-
   {
-
     value: 'number',
-
     default: '',
-
     description: 'Any JSON number. Number includes integer'
-
   },
-
   {
-
     value: 'null',
-
     default: '',
-
     description: 'The JSON null value'
-
   },
-
   {
-
     value: 'object',
-
     default: 'true',
-
     description: 'A JSON object'
-
   }
-
 ];
 
- 
+const dataTypes = [
+  'integer',
+  'long',
+  'float',
+  'double',
+  'string',
+  'byte',
+  'binary',
+  'boolean',
+  'date',
+  'dateTime',
+  'password',
+];
 
- 
+
+const dataTypeJSON = {
+  integer: {
+    type: 'integer',
+    format: 'int32'
+  },
+  long: {
+    type: 'integer',
+    format: 'int64'
+  },
+  float: {
+    type: 'number',
+    format: 'float'
+  },
+  double: {
+    type: 'number',
+    format: 'double'
+  },
+  string: {
+    type: 'string',
+    format: undefined
+  },
+  byte: {
+    type: 'string',
+    format: 'byte'
+  },
+  binary: {
+    type: 'string',
+    format: 'binary'
+  },
+  boolean: {
+    type: 'boolean',
+    format: undefined
+  },
+  date: {
+    type: 'string',
+    format: 'date'
+  },
+  dateTime: {
+    type: 'string',
+    format: 'date-time'
+  },
+  password: {
+    type: 'string',
+    format: 'password'
+  }
+};
+
 
 @Injectable()
-
 export class VehicleService {
 
- 
-
   private vehicles;
-
- 
-
-  private mimeTypes;
-
- 
-
+  private mimetypes;
   private objectTypes;
-
- 
+  private dataTypes;
+  private dataTypeJSON;
 
   constructor() {
-
     this.vehicles = vehicles;
-
-    this.mimeTypes = mimeTypes;
-
+    this.mimetypes = mimetypes;
     this.objectTypes = objectTypes;
-
+    this.dataTypes = dataTypes;
+    this.dataTypeJSON = dataTypeJSON;
   }
-
- 
 
   getVehicles() {
-
     return this.vehicles;
-
   }
-
- 
 
   getMimeTypes() {
-
-    return this.mimeTypes;
-
+    return this.mimetypes;
   }
-
- 
 
   getObjectTypes() {
-
     return this.objectTypes;
-
   }
 
- 
+  getDataTypes() {
+    return this.dataTypes;
+  }
+
+  getDataTypeJSON() {
+    return this.dataTypeJSON;
+  }
 
 }

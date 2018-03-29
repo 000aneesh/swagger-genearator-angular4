@@ -2,7 +2,7 @@
 
   <h2>Swagger JSON</h2>
 
-  <button type="button" (click)="generateJSON(swaggerJSON)">Generate</button>
+  <button type="button" (click)="generateJSON($event)">Generate</button>
 
   <table>
 
@@ -18,7 +18,7 @@
 
       <th colspan="2"><label>Info </label></th>
 
- 
+
 
     </tr>
 
@@ -48,7 +48,7 @@
 
     <tr>
 
- 
+
 
       <td><label>Host: </label></td>
 
@@ -58,7 +58,7 @@
 
     <tr>
 
- 
+
 
       <td><label>Base Path: </label></td>
 
@@ -73,15 +73,10 @@
       <td>
 
         <select id="mimeType" #mimeType="ngModel" class="form-control" [(ngModel)]="swaggerConsumes" name="mimeType"> 
-
                            <option selected="" value="">Select One</option> 
-
-                        <option [ngValue]="mType.mimeType" *ngFor="let mType of mimeTypes"> 
-
-                            {{mType.mimeType}} 
-
+                        <option [ngValue]="mimetype.type" *ngFor="let mimetype of mimetypes"> 
+                            {{mimetype.type}} 
                      </option> 
-
                 </select>
 
       </td>
@@ -98,9 +93,9 @@
 
                            <option selected="" value="">Select One</option> 
 
-                        <option [ngValue]="mType.mimeType" *ngFor="let mType of mimeTypes"> 
+                        <option [ngValue]="mimetype.type" *ngFor="let mimetype of mimetypes"> 
 
-                            {{mType.mimeType}} 
+                            {{mimetype.type}} 
 
                      </option> 
 
@@ -122,7 +117,7 @@
 
       <td><label>({{i+1}}) Class Defenition: </label></td>
 
-      <td><input placeholder="Class Name" />
+      <td><input placeholder="Class Name" [(ngModel)]="defn.defnName" />
 
         <table>
 
@@ -130,21 +125,22 @@
 
             <td><label>({{j+1}}) Attribute Name: </label></td>
 
-            <td><input placeholder="Attribute Name" /></td>
+            <td><input placeholder="Attribute Name" [(ngModel)]="defn.properties[j].propName" /></td>
 
             <td><label>Attribute Type: </label></td>
 
-            <td> <select id="objectType" class="form-control" name="objectType"> 
+            <td> <select class="form-control" [(ngModel)]="defn.properties[j].property.type"> 
 
-                        <option [ngValue]="objType.value" *ngFor="let objType of objectTypes" [title]="objType.description" > 
+                        <option [ngValue]="dataType" *ngFor="let dataType of dataTypes"> 
 
-                            {{objType.value}} 
+                            {{dataType}} 
 
                      </option> 
 
                 </select></td>
 
-                <td><button type="button" (click)="addAttribute($event)" id="addAttribute-{{i}}">Add Attribute</button></td>
+            <td><button type="button" (click)="addAttribute($event)" id="addAttribute-{{i}}-{{j}}">Add Attribute</button>
+              <button type="button" (click)="removeAttribute($event)" id="removeAttribute-{{i}}-{{j}}">Remove Attribute</button></td>
 
           </tr>
 
@@ -172,6 +168,6 @@
 
 <div>
   <br>
-<span id="finalJson">{{finalJSON}}</span>
+  <span id="finalJson">{{finalJSON}}</span>
 
 </div>
