@@ -6,7 +6,7 @@ export class SwaggerJSON {
     consumes: Array<string> = new Array<string>();
     produces: Array<string> = new Array<string>();
     basePath: string = "/";
-    tags: Tag[] = new Array<Tag>(new Tag());
+    tags: Array<Tag> = new Array<Tag>(new Tag());
     paths: Paths = new Paths();
     definitions: Definitions = new Definitions();
 }
@@ -72,7 +72,7 @@ export class Schema {
     $ref: string;
 }
 
-export interface Responses {
+export class Responses {
 }
 
 export class Definitions {
@@ -114,4 +114,15 @@ export class PropertyUIObject {
     propName: string = "";
     property: Property = new Property({ type: 'integer', format: '' });
 
+}
+
+export class ControllerUIObject {
+    name: string = "";
+    description: string = "";
+    paths: Array<PathUIObject> = new Array<PathUIObject>(new PathUIObject);
+}
+
+export class PathUIObject {
+    path: string = "";
+    pathType: string = "get";
 }

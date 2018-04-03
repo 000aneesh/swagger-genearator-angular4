@@ -5,101 +5,53 @@ import { Injectable } from '@angular/core';
 const vehicles = [
 
   {
-
     id: 1,
-
     name: 'Trailer - 1',
-
     type: 'Truck',
-
     mass: 40
-
   },
-
   {
-
     id: 2,
-
     name: 'An-2',
-
     type: 'Plane',
-
     mass: 5
-
   },
-
   {
-
     id: 3,
-
     name: 'LandCruiser 80',
-
     type: 'Jeep',
-
     mass: 2
-
-  },
-
+  }
 ];
 
-
-
 const mimetypes = [
-
   {
-
     type: '*/*'
-
   },
-
   {
-
     type: 'application/json'
-
   },
-
   {
-
     type: 'application/xml'
-
   },
-
   {
-
     type: 'application/x-www-form-urlencoded'
-
   },
-
   {
-
     type: 'multipart/form-data'
-
   },
-
   {
-
     type: 'text/plain; charset=utf-8'
-
   },
-
   {
-
     type: 'text/html'
-
   },
-
   {
-
     type: 'application/pdf'
-
   },
-
   {
-
     type: 'image/png'
-
   }
-
 ];
 
 const objectTypes = [
@@ -202,6 +154,12 @@ const dataTypeJSON = {
   }
 };
 
+const requestMethodTypes = [
+  { key: "GET", value: "get" },
+  { key: "POST", value: "post" },
+  { key: "PUT", value: "put" },
+  { key: "DELETE", value: "delete" }
+];
 
 @Injectable()
 export class VehicleService {
@@ -211,6 +169,7 @@ export class VehicleService {
   private objectTypes;
   private dataTypes;
   private dataTypeJSON;
+  private requestMethodTypes;
 
   constructor() {
     this.vehicles = vehicles;
@@ -218,6 +177,7 @@ export class VehicleService {
     this.objectTypes = objectTypes;
     this.dataTypes = dataTypes;
     this.dataTypeJSON = dataTypeJSON;
+    this.requestMethodTypes = requestMethodTypes;
   }
 
   getVehicles() {
@@ -240,4 +200,7 @@ export class VehicleService {
     return this.dataTypeJSON;
   }
 
+  getRequestMethodTypes() {
+    return this.requestMethodTypes;
+  }
 }

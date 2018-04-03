@@ -1,7 +1,7 @@
 import { Vehicle } from '../model/vehicle';
 import { VehicleService } from '../vehicle.service';
 import { Component, OnInit } from '@angular/core';
-import { SwaggerJSON, Definitions, Definition, Property, DefintionUIObject, PropertyUIObject, Tag } from '../model/swaggerjson';
+import { SwaggerJSON, Definitions, Definition, Property, DefintionUIObject, PropertyUIObject, Tag, PathUIObject, ControllerUIObject } from '../model/swaggerjson';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -19,7 +19,10 @@ export class VehicleListComponent implements OnInit {
   objectTypes: any;
   dataTypes: any;
   dataTypeJSON: any;
-  definitionList = Array<any>();
+  requestMethodTypes: any;
+  definitionList = new Array<any>();
+  controllertNameArray = new Array<string>();
+  controllerObjArray: Array<ControllerUIObject> = new Array<ControllerUIObject>(new ControllerUIObject());
   finalJSON: string;
   swaggerConsumes: string = "";
   swaggerProduces: string = "";
@@ -30,6 +33,7 @@ export class VehicleListComponent implements OnInit {
     this.objectTypes = this.vehicleService.getObjectTypes();
     this.dataTypes = this.vehicleService.getDataTypes();
     this.dataTypeJSON = this.vehicleService.getDataTypeJSON();
+    this.requestMethodTypes = this.vehicleService.getRequestMethodTypes();
   }
 
   ngOnInit() {
@@ -131,16 +135,33 @@ export class VehicleListComponent implements OnInit {
   }
 
   addController(event) {
-    this.swaggerJSON.tags.push(new Tag());
+    this.controllerObjArray.push(new ControllerUIObject());
   }
 
   removeController(event) {
     var elmId = event.target.id;
     var indx = elmId.split('-')[1];
-    this.swaggerJSON.tags.splice(indx, 1);
-    if (this.swaggerJSON.tags.length == 0) {
-      this.swaggerJSON.tags.push(new Tag());
+    this.controllerObjArray.splice(indx, 1);
+    if (this.controllerObjArray.length == 0) {
+      this.controllerObjArray.push(new ControllerUIObject());
     }
   }
 
+  addPath(event) {
+    var elmId = event.target.id;
+    var contrlrIndx = elmId.split('-')[1];
+    var pathIndx = elmId.split('-')[2];
+    this.controllerObjArray[contrlrIndx].paths.push(new PathUIObject());
+  }
+
+  removePath(event) {
+    var elmId = event.target.id;
+    var contrlrIndx = elmId.split('-')[1];
+    var pathIndx = elmId.split('-')[2];
+
+    this.controllerObjArray[contrlrIndx].paths.splice(pathIndx, 1);
+    if (this.controllerObjArray[contrlrIndx].paths.length == 0) {
+      this.controllerObjArray[contrlrIndx].paths.push(new PathUIObject());
+    }
+  }
 }
