@@ -1,173 +1,98 @@
 <div>
-
   <h2>Swagger JSON</h2>
-
   <button type="button" (click)="generateJSON($event)">Generate</button>
-
   <table>
-
     <tr>
-
       <td><label>Swagger: </label></td>
-
       <td><input [(ngModel)]="swaggerJSON.swagger" placeholder="Swagger" readonly/></td>
-
     </tr>
-
+   <!-- <tr>
+      <th><label>Info </label></th>
+    </tr> -->
     <tr>
-
-      <th colspan="2"><label>Info </label></th>
-
-
-
-    </tr>
-
-    <tr>
-
       <td><label>Description: </label></td>
-
       <td><input [(ngModel)]="swaggerJSON.info.description" placeholder="Description" /></td>
-
     </tr>
-
     <tr>
-
       <td><label>Version: </label></td>
-
       <td><input [(ngModel)]="swaggerJSON.info.version" placeholder="Version" /></td>
-
     </tr>
-
     <tr>
-
       <td><label>Title: </label></td>
-
       <td><input [(ngModel)]="swaggerJSON.info.title" placeholder="Title" /></td>
-
     </tr>
-
     <tr>
-
-
-
       <td><label>Host: </label></td>
-
       <td><input [(ngModel)]="swaggerJSON.host" placeholder="Host" /></td>
-
     </tr>
-
     <tr>
-
-
-
       <td><label>Base Path: </label></td>
-
       <td><input [(ngModel)]="swaggerJSON.basePath" placeholder="Base Path" /></td>
-
     </tr>
-
     <tr>
-
       <td><label>Consumes: </label></td>
-
       <td>
-
         <select id="mimeType" #mimeType="ngModel" class="form-control" [(ngModel)]="swaggerConsumes" name="mimeType"> 
                            <option selected="" value="">Select One</option> 
                         <option [ngValue]="mimetype.type" *ngFor="let mimetype of mimetypes"> 
                             {{mimetype.type}} 
                      </option> 
                 </select>
-
       </td>
-
     </tr>
-
     <tr>
-
       <td><label>Produces: </label></td>
-
       <td>
-
         <select id="mimeType" #mimeType="ngModel" class="form-control" [(ngModel)]="swaggerProduces" name="mimeType"> 
-
                            <option selected="" value="">Select One</option> 
-
                         <option [ngValue]="mimetype.type" *ngFor="let mimetype of mimetypes"> 
-
                             {{mimetype.type}} 
-
                      </option> 
-
                 </select>
-
       </td>
-
     </tr>
-
+    <tr *ngFor="let tag of swaggerJSON.tags; let i = index">
+      <td><label>Controller: </label></td>
+      <td><input [(ngModel)]="tag.name" placeholder="Controller Name" /> <input [(ngModel)]="tag.description" placeholder="Controller Description"
+        />
+        <button type="button" (click)="addController($event)" id="addController-{{i}}">Add Controller</button>
+        <button type="button" (click)="removeController($event)" id="removeController-{{i}}">Remove Controller</button></td>
+    </tr>
+        <tr *ngFor="let path of swaggerJSON.paths; let i = index">
+      <td><label>Paths: </label></td>
+      <td><input [(ngModel)]="tag.name" placeholder="Path" /> <input [(ngModel)]="tag.description" placeholder="Controller Description"
+        />
+        <button type="button" (click)="addController($event)" id="addController-{{i}}">Add Controller</button>
+        <button type="button" (click)="removeController($event)" id="removeController-{{i}}">Remove Controller</button></td>
+    </tr>
     <tr>
-
       <td><label>Definitions: </label></td>
-
       <td><input type="checkbox" [(ngModel)]="showDefinitions" (change)=definitionCheckEvent($event) id="definitionCheck" /></td>
-
     </tr>
-
     <tr *ngFor="let defn of definitionList; let i = index">
-
-      <td><label>({{i+1}}) Class Defenition: </label></td>
-
+      <td><label>({{i+1}}) Defenition: </label></td>
       <td><input placeholder="Class Name" [(ngModel)]="defn.defnName" />
-
+      <button type="button" (click)="addDefinition($event)" id="addDefinition-{{i}}">Add Class</button>
+      <button type="button" (click)="removeDefinition($event)" id="removeDefinition-{{i}}">Remove Class</button>
         <table>
-
           <tr *ngFor="let prop of defn.properties; let j = index">
-
-            <td><label>({{j+1}}) Attribute Name: </label></td>
-
-            <td><input placeholder="Attribute Name" [(ngModel)]="defn.properties[j].propName" /></td>
-
-            <td><label>Attribute Type: </label></td>
-
-            <td> <select class="form-control" [(ngModel)]="defn.properties[j].property.type"> 
-
+            <td><label>({{j+1}}) : </label></td>
+            <td><input placeholder="Attribute Name" [(ngModel)]="defn.properties[j].propName" />
+            <label>Attribute Type: </label>
+            <select class="form-control" [(ngModel)]="defn.properties[j].property.type"> 
                         <option [ngValue]="dataType" *ngFor="let dataType of dataTypes"> 
-
                             {{dataType}} 
-
                      </option> 
-
-                </select></td>
-
-            <td><button type="button" (click)="addAttribute($event)" id="addAttribute-{{i}}-{{j}}">Add Attribute</button>
+                </select>
+            <button type="button" (click)="addAttribute($event)" id="addAttribute-{{i}}-{{j}}">Add Attribute</button>
               <button type="button" (click)="removeAttribute($event)" id="removeAttribute-{{i}}-{{j}}">Remove Attribute</button></td>
-
           </tr>
-
         </table>
-
       </td>
-
-      <td><button type="button" (click)="addDefinition($event)" id="addDefinition-{{i}}">Add Class</button></td>
-
-      <td><button type="button" (click)="removeDefinition($event)" id="removeDefinition-{{i}}">Remove Class</button></td>
-
     </tr>
-
-    <tr>
-
-      <td><label>Produces: </label></td>
-
-      <td><input [(ngModel)]="swaggerJSON.produces" placeholder="mass" /></td>
-
-    </tr>
-
   </table>
-
 </div>
-
 <div>
   <br>
   <span id="finalJson">{{finalJSON}}</span>
-
 </div>

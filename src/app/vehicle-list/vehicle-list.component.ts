@@ -1,7 +1,7 @@
 import { Vehicle } from '../model/vehicle';
 import { VehicleService } from '../vehicle.service';
 import { Component, OnInit } from '@angular/core';
-import { SwaggerJSON, Definitions, Definition, Property, DefintionUIObject, PropertyUIObject } from '../model/swaggerjson';
+import { SwaggerJSON, Definitions, Definition, Property, DefintionUIObject, PropertyUIObject, Tag } from '../model/swaggerjson';
 
 @Component({
   selector: 'app-vehicle-list',
@@ -39,7 +39,7 @@ export class VehicleListComponent implements OnInit {
 
   generateJSON(event) {
     this.finalJSON = '';
-    var swaggerJsonClone = Object.assign({}, this.swaggerJSON);
+    var swaggerJsonClone = JSON.parse(JSON.stringify(this.swaggerJSON));
     var isValid = this.checkJSON(swaggerJsonClone);
     if (isValid) {
       swaggerJsonClone.host = swaggerJsonClone.host && swaggerJsonClone.host.trim() ? swaggerJsonClone.host.trim() : undefined;
@@ -47,22 +47,38 @@ export class VehicleListComponent implements OnInit {
       this.swaggerConsumes ? swaggerJsonClone.consumes.push(this.swaggerConsumes) : swaggerJsonClone.consumes = undefined;
       this.swaggerProduces ? swaggerJsonClone.produces.push(this.swaggerProduces) : swaggerJsonClone.produces = undefined;
 
+      if (swaggerJsonClone.tags) {
+        for (let tag of swaggerJsonClone.tags) {
+          var tagName = tag.name && tag.name.trim() ? tag.name.trim() : "";
+          if (tagName) {
+            tag.name = tagName;
+            tag.description = tag.description.trim();
+          } else {
+            swaggerJsonClone.tags.splice(swaggerJsonClone.tags.indexOf(tag), 1);
+          }
+        }
+      }
+
       if (this.definitionList) {
         var definitionsObj: Definitions = new Definitions();
         for (let defn of this.definitionList) {
-          var definitionsObjKey: string = defn.defnName;
-          var definitionsObjValue: Definition = new Definition();
-          definitionsObjValue.type = defn.definition.type;
-          for (let prop of defn.properties) {
-            var propertiesObjKey: string = prop.propName;
-            var propertiesObjValue: Property = new Property();
-            propertiesObjValue.type = prop.property.type;
-            propertiesObjValue.format = this.dataTypeJSON[prop.property.type].format;
-            definitionsObjValue.properties[propertiesObjKey] = propertiesObjValue;
+          var definitionsObjKey: string = defn.defnName ? defn.defnName.trim() : "";
+          if (definitionsObjKey) {
+            var definitionsObjValue: Definition = new Definition();
+            definitionsObjValue.type = defn.definition.type;
+            for (let prop of defn.properties) {
+              var propertiesObjKey: string = prop.propName ? prop.propName.trim() : "";
+              if (propertiesObjKey) {
+                var propertiesObjValue: Property = new Property();
+                propertiesObjValue.type = this.dataTypeJSON[prop.property.type].type;
+                propertiesObjValue.format = this.dataTypeJSON[prop.property.type].format;
+                definitionsObjValue.properties[propertiesObjKey] = propertiesObjValue;
+              }
+            }
+            definitionsObj[definitionsObjKey] = definitionsObjValue;
           }
-          definitionsObj[definitionsObjKey] = definitionsObjValue;
         }
-swaggerJsonClone.definitions = definitionsObj;
+        swaggerJsonClone.definitions = definitionsObj;
       }
       this.finalJSON = JSON.stringify(swaggerJsonClone);
     }
@@ -111,6 +127,19 @@ swaggerJsonClone.definitions = definitionsObj;
     this.definitionList[defIndx].properties.splice(propIndx, 1);
     if (this.definitionList[defIndx].properties.length == 0) {
       this.definitionList[defIndx].properties.push(new PropertyUIObject());
+    }
+  }
+
+  addController(event) {
+    this.swaggerJSON.tags.push(new Tag());
+  }
+
+  removeController(event) {
+    var elmId = event.target.id;
+    var indx = elmId.split('-')[1];
+    this.swaggerJSON.tags.splice(indx, 1);
+    if (this.swaggerJSON.tags.length == 0) {
+      this.swaggerJSON.tags.push(new Tag());
     }
   }
 

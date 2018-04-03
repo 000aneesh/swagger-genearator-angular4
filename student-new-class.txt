@@ -1,0 +1,317 @@
+declare module namespace {
+
+    export interface Info {
+        description: string;
+        version: string;
+        title: string;
+    }
+
+    export interface Tag {
+        name: string;
+        description: string;
+    }
+
+    export interface Items {
+        $ref: string;
+    }
+
+    export interface Schema {
+        type: string;
+        items: Items;
+    }
+
+    export interface 2002 {
+        description: string;
+        schema: Schema;
+    }
+
+    export interface 4012 {
+        description: string;
+    }
+
+    export interface 5002 {
+        description: string;
+    }
+
+    export interface 4032 {
+        description: string;
+    }
+
+    export interface 4042 {
+        description: string;
+    }
+
+    export interface Responses {
+        200: 2002;
+        401: 4012;
+        500: 5002;
+        403: 4032;
+        404: 4042;
+    }
+
+    export interface Get {
+        tags: string[];
+        summary: string;
+        operationId: string;
+        consumes: string[];
+        produces: string[];
+        responses: Responses;
+    }
+
+    export interface Schema2 {
+        $ref: string;
+    }
+
+    export interface Parameter {
+        in: string;
+        name: string;
+        description: string;
+        required: boolean;
+        schema: Schema2;
+    }
+
+    export interface Schema3 {
+        $ref: string;
+    }
+
+    export interface 2003 {
+        description: string;
+        schema: Schema3;
+    }
+
+    export interface Schema4 {
+        $ref: string;
+    }
+
+    export interface 2012 {
+        description: string;
+        schema: Schema4;
+    }
+
+    export interface 4002 {
+        description: string;
+    }
+
+    export interface 4013 {
+        description: string;
+    }
+
+    export interface 5003 {
+        description: string;
+    }
+
+    export interface 4033 {
+        description: string;
+    }
+
+    export interface 4043 {
+        description: string;
+    }
+
+    export interface Responses2 {
+        200: 2003;
+        201: 2012;
+        400: 4002;
+        401: 4013;
+        500: 5003;
+        403: 4033;
+        404: 4043;
+    }
+
+    export interface Post {
+        tags: string[];
+        summary: string;
+        operationId: string;
+        consumes: string[];
+        produces: string[];
+        parameters: Parameter[];
+        responses: Responses2;
+    }
+
+    export interface Schema5 {
+        $ref: string;
+    }
+
+    export interface Parameter2 {
+        in: string;
+        name: string;
+        description: string;
+        required: boolean;
+        schema: Schema5;
+    }
+
+    export interface Schema6 {
+        $ref: string;
+    }
+
+    export interface 2004 {
+        description: string;
+        schema: Schema6;
+    }
+
+    export interface Schema7 {
+        $ref: string;
+    }
+
+    export interface 2013 {
+        description: string;
+        schema: Schema7;
+    }
+
+    export interface 4003 {
+        description: string;
+    }
+
+    export interface 4014 {
+        description: string;
+    }
+
+    export interface 5004 {
+        description: string;
+    }
+
+    export interface 4034 {
+        description: string;
+    }
+
+    export interface 4044 {
+        description: string;
+    }
+
+    export interface Responses3 {
+        200: 2004;
+        201: 2013;
+        400: 4003;
+        401: 4014;
+        500: 5004;
+        403: 4034;
+        404: 4044;
+    }
+
+    export interface Put {
+        tags: string[];
+        summary: string;
+        operationId: string;
+        consumes: string[];
+        produces: string[];
+        parameters: Parameter2[];
+        responses: Responses3;
+    }
+
+    export interface Schema8 {
+        type: string;
+        format: string;
+    }
+
+    export interface Parameter3 {
+        in: string;
+        name: string;
+        description: string;
+        required: boolean;
+        schema: Schema8;
+    }
+
+    export interface 2005 {
+        description: string;
+    }
+
+    export interface 2014 {
+        description: string;
+    }
+
+    export interface 4004 {
+        description: string;
+    }
+
+    export interface 4015 {
+        description: string;
+    }
+
+    export interface 5005 {
+        description: string;
+    }
+
+    export interface 2042 {
+        description: string;
+    }
+
+    export interface 4035 {
+        description: string;
+    }
+
+    export interface Responses4 {
+        200: 2005;
+        201: 2014;
+        400: 4004;
+        401: 4015;
+        500: 5005;
+        204: 2042;
+        403: 4035;
+    }
+
+    export interface Delete {
+        tags: string[];
+        summary: string;
+        operationId: string;
+        consumes: string[];
+        produces: string[];
+        parameters: Parameter3[];
+        responses: Responses4;
+    }
+
+    export interface Students {
+        get: Get;
+        post: Post;
+        put: Put;
+        delete: Delete;
+    }
+
+    export interface Paths {
+        /students: Students;
+    }
+
+    export interface Address {
+        type: string;
+    }
+
+    export interface Batch {
+        type: string;
+    }
+
+    export interface Id {
+        type: string;
+        format: string;
+    }
+
+    export interface Name {
+        type: string;
+    }
+
+    export interface Properties {
+        address: Address;
+        batch: Batch;
+        id: Id;
+        name: Name;
+    }
+
+    export interface StudentDTO {
+        type: string;
+        properties: Properties;
+    }
+
+    export interface Definitions {
+        StudentDTO: StudentDTO;
+    }
+
+    export interface RootObject {
+        swagger: string;
+        info: Info;
+        host: string;
+        basePath: string;
+        tags: Tag[];
+        paths: Paths;
+        definitions: Definitions;
+    }
+
+}
+

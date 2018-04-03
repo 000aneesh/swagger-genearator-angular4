@@ -6,7 +6,7 @@ export class SwaggerJSON {
     consumes: Array<string> = new Array<string>();
     produces: Array<string> = new Array<string>();
     basePath: string = "/";
-    tags: Tag[] = new Array<Tag>();
+    tags: Tag[] = new Array<Tag>(new Tag());
     paths: Paths = new Paths();
     definitions: Definitions = new Definitions();
 }
@@ -18,6 +18,61 @@ export class Info {
 }
 
 export class Paths {
+}
+
+export class Get {
+    tags: string[];
+    summary: string;
+    operationId: string;
+    consumes: string[];
+    produces: string[];
+    responses: Responses;
+}
+
+export class Post {
+    tags: string[];
+    summary: string;
+    operationId: string;
+    consumes: string[];
+    produces: string[];
+    parameters: Parameter[];
+    responses: Responses;
+}
+
+export class Put {
+    tags: string[];
+    summary: string;
+    operationId: string;
+    consumes: string[];
+    produces: string[];
+    parameters: Parameter[];
+    responses: Responses;
+}
+export class Delete {
+    tags: string[];
+    summary: string;
+    operationId: string;
+    consumes: string[];
+    produces: string[];
+    parameters: Parameter[];
+    responses: Responses;
+}
+
+export class Parameter {
+    in: string;
+    name: string;
+    description: string;
+    required: boolean;
+    schema: Schema;
+}
+
+
+
+export class Schema {
+    $ref: string;
+}
+
+export interface Responses {
 }
 
 export class Definitions {
@@ -32,8 +87,8 @@ export class Definition {
 }
 
 export class Tag {
-    name: string;
-    description: string;
+    name: string = "";
+    description: string = "";
 }
 
 export class Property {

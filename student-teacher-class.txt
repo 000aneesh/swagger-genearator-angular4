@@ -1,0 +1,332 @@
+declare module namespace {
+
+    export interface Info {
+        description: string;
+        version: string;
+        title: string;
+    }
+
+    export interface Tag {
+        name: string;
+        description: string;
+    }
+
+    export interface Items {
+        $ref: string;
+    }
+
+    export interface Schema {
+        type: string;
+        items: Items;
+    }
+
+    export interface 2002 {
+        description: string;
+        schema: Schema;
+    }
+
+    export interface 4012 {
+        description: string;
+    }
+
+    export interface 5002 {
+        description: string;
+    }
+
+    export interface 4032 {
+        description: string;
+    }
+
+    export interface 4042 {
+        description: string;
+    }
+
+    export interface Responses {
+        200: 2002;
+        401: 4012;
+        500: 5002;
+        403: 4032;
+        404: 4042;
+    }
+
+    export interface Get {
+        tags: string[];
+        summary: string;
+        operationId: string;
+        consumes: string[];
+        produces: string[];
+        responses: Responses;
+    }
+
+    export interface Schema2 {
+        $ref: string;
+    }
+
+    export interface Parameter {
+        in: string;
+        name: string;
+        description: string;
+        required: boolean;
+        schema: Schema2;
+    }
+
+    export interface Schema3 {
+        $ref: string;
+    }
+
+    export interface 2003 {
+        description: string;
+        schema: Schema3;
+    }
+
+    export interface Schema4 {
+        $ref: string;
+    }
+
+    export interface 2012 {
+        description: string;
+        schema: Schema4;
+    }
+
+    export interface 4002 {
+        description: string;
+    }
+
+    export interface 4013 {
+        description: string;
+    }
+
+    export interface 5003 {
+        description: string;
+    }
+
+    export interface 4033 {
+        description: string;
+    }
+
+    export interface 4043 {
+        description: string;
+    }
+
+    export interface Responses2 {
+        200: 2003;
+        201: 2012;
+        400: 4002;
+        401: 4013;
+        500: 5003;
+        403: 4033;
+        404: 4043;
+    }
+
+    export interface Post {
+        tags: string[];
+        summary: string;
+        operationId: string;
+        consumes: string[];
+        produces: string[];
+        parameters: Parameter[];
+        responses: Responses2;
+    }
+
+    export interface Students {
+        get: Get;
+        post: Post;
+    }
+
+    export interface Items2 {
+        $ref: string;
+    }
+
+    export interface Schema5 {
+        type: string;
+        items: Items2;
+    }
+
+    export interface 2004 {
+        description: string;
+        schema: Schema5;
+    }
+
+    export interface 4014 {
+        description: string;
+    }
+
+    export interface 5004 {
+        description: string;
+    }
+
+    export interface 4034 {
+        description: string;
+    }
+
+    export interface 4044 {
+        description: string;
+    }
+
+    export interface Responses3 {
+        200: 2004;
+        401: 4014;
+        500: 5004;
+        403: 4034;
+        404: 4044;
+    }
+
+    export interface Get2 {
+        tags: string[];
+        summary: string;
+        operationId: string;
+        consumes: string[];
+        produces: string[];
+        responses: Responses3;
+    }
+
+    export interface Schema6 {
+        $ref: string;
+    }
+
+    export interface Parameter2 {
+        in: string;
+        name: string;
+        description: string;
+        required: boolean;
+        schema: Schema6;
+    }
+
+    export interface Schema7 {
+        $ref: string;
+    }
+
+    export interface 2005 {
+        description: string;
+        schema: Schema7;
+    }
+
+    export interface Schema8 {
+        $ref: string;
+    }
+
+    export interface 2013 {
+        description: string;
+        schema: Schema8;
+    }
+
+    export interface 4003 {
+        description: string;
+    }
+
+    export interface 4015 {
+        description: string;
+    }
+
+    export interface 5005 {
+        description: string;
+    }
+
+    export interface 4035 {
+        description: string;
+    }
+
+    export interface 4045 {
+        description: string;
+    }
+
+    export interface Responses4 {
+        200: 2005;
+        201: 2013;
+        400: 4003;
+        401: 4015;
+        500: 5005;
+        403: 4035;
+        404: 4045;
+    }
+
+    export interface Post2 {
+        tags: string[];
+        summary: string;
+        operationId: string;
+        consumes: string[];
+        produces: string[];
+        parameters: Parameter2[];
+        responses: Responses4;
+    }
+
+    export interface Teachers {
+        get: Get2;
+        post: Post2;
+    }
+
+    export interface Paths {
+        /students: Students;
+        /teachers: Teachers;
+    }
+
+    export interface Address {
+        type: string;
+    }
+
+    export interface Id {
+        type: string;
+        format: string;
+    }
+
+    export interface Name {
+        type: string;
+    }
+
+    export interface Properties {
+        address: Address;
+        id: Id;
+        name: Name;
+    }
+
+    export interface TeacherDTO {
+        type: string;
+        properties: Properties;
+    }
+
+    export interface Address2 {
+        type: string;
+    }
+
+    export interface Batch {
+        type: string;
+    }
+
+    export interface Id2 {
+        type: string;
+        format: string;
+    }
+
+    export interface Name2 {
+        type: string;
+    }
+
+    export interface Properties2 {
+        address: Address2;
+        batch: Batch;
+        id: Id2;
+        name: Name2;
+    }
+
+    export interface StudentDTO {
+        type: string;
+        properties: Properties2;
+    }
+
+    export interface Definitions {
+        TeacherDTO: TeacherDTO;
+        StudentDTO: StudentDTO;
+    }
+
+    export interface RootObject {
+        swagger: string;
+        info: Info;
+        host: string;
+        basePath: string;
+        tags: Tag[];
+        paths: Paths;
+        definitions: Definitions;
+    }
+
+}
+
