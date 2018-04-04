@@ -84,32 +84,50 @@
         <label>({{i+1}}) Controller: </label>
       </td>
       <td>
-        <input [(ngModel)]="controllerObj.name" placeholder="Controller Name"/>
+        <input [(ngModel)]="controllerObj.name" placeholder="Controller Name" />
         <input [(ngModel)]="controllerObj.description" placeholder="Controller Description" />
         <button type="button" (click)="addController($event)" id="addController-{{i}}">Add Controller</button>
         <button type="button" (click)="removeController($event)" id="removeController-{{i}}">Remove Controller</button>
-<table>
-    <tr *ngFor="let pathObj of controllerObj.paths; let j = index">
-        <td>
-          <input [(ngModel)]="pathObj.path" placeholder="Request Path" />
-         <select class="form-control" [(ngModel)]="pathObj.pathType">
+        <table>
+          <tr *ngFor="let pathObj of controllerObj.paths; let j = index">
+            <td>
+              <input [(ngModel)]="pathObj.path" placeholder="Request Path" />
+              <select class="form-control" [(ngModel)]="pathObj.pathType">
             <option [ngValue]="requestMethod.value" *ngFor="let requestMethod of requestMethodTypes">
               {{requestMethod.key}}
             </option>
           </select>
-          <button type="button" (click)="addPath($event)" id="addPath-{{i}}-{{j}}">Add Path</button>
-          <button type="button" (click)="removePath($event)" id="removePath-{{i}}-{{j}}">Remove Path</button>
-        </td>
-      </tr>
+              <input [(ngModel)]="pathObj.summary" placeholder="Summary" />
+              <button type="button" (click)="addPath($event)" id="addPath-{{i}}-{{j}}">Add Path</button>
+              <button type="button" (click)="removePath($event)" id="removePath-{{i}}-{{j}}">Remove Path</button>
+              <br>
+              <div style="padding-top: 5px"></div>
 
-</table>
-        
+              <label>Consumes: </label>
+              <select class="Opform-control" [(ngModel)]="pathObj.consumes">
+          <option selected="" value="">Select One</option>
+          <option [ngValue]="mimetype.type" *ngFor="let mimetype of mimetypes">
+            {{mimetype.type}}
+          </option>
+              </select>
+              <label>Produces: </label>
+              <select class="Opform-control" [(ngModel)]="pathObj.produces">
+          <option selected="" value="">Select One</option>
+          <option [ngValue]="mimetype.type" *ngFor="let mimetype of mimetypes">
+            {{mimetype.type}}
+          </option>
+        </select>
+            </td>
+          </tr>
+
+        </table>
+
       </td>
     </tr>
-    
+
     <tr>
       <td>
-        <label>Definitions: </label>
+        <label>Models: </label>
       </td>
       <td>
         <input type="checkbox" [(ngModel)]="showDefinitions" (change)=definitionCheckEvent($event) id="definitionCheck" />
@@ -117,27 +135,27 @@
     </tr>
     <tr *ngFor="let defn of definitionList; let i = index">
       <td>
-        <label>({{i+1}}) Defenition: </label>
+        <label>({{i+1}}) Model: </label>
       </td>
       <td>
-        <input placeholder="Class Name" [(ngModel)]="defn.defnName" />
-        <button type="button" (click)="addDefinition($event)" id="addDefinition-{{i}}">Add Class</button>
-        <button type="button" (click)="removeDefinition($event)" id="removeDefinition-{{i}}">Remove Class</button>
+        <input placeholder="Class Name" [(ngModel)]="defn.defnName" [(readonly)]="!showDefinitions" />
+        <button type="button" (click)="addDefinition($event)" id="addDefinition-{{i}}" [(disabled)]="!showDefinitions">Add Class</button>
+        <button type="button" (click)="removeDefinition($event)" id="removeDefinition-{{i}}" [(disabled)]="!showDefinitions">Remove Class</button>
         <table>
           <tr *ngFor="let prop of defn.properties; let j = index">
             <td>
               <label>({{j+1}}) : </label>
             </td>
             <td>
-              <input placeholder="Attribute Name" [(ngModel)]="defn.properties[j].propName" />
+              <input placeholder="Attribute Name" [(ngModel)]="defn.properties[j].propName" [(readonly)]="!showDefinitions" />
               <label>Attribute Type: </label>
-              <select class="form-control" [(ngModel)]="defn.properties[j].property.type">
+              <select class="form-control" [(ngModel)]="defn.properties[j].property.type" [(disabled)]="!showDefinitions">
                 <option [ngValue]="dataType" *ngFor="let dataType of dataTypes">
                   {{dataType}}
                 </option>
               </select>
-              <button type="button" (click)="addAttribute($event)" id="addAttribute-{{i}}-{{j}}">Add Attribute</button>
-              <button type="button" (click)="removeAttribute($event)" id="removeAttribute-{{i}}-{{j}}">Remove Attribute</button>
+              <button type="button" (click)="addAttribute($event)" id="addAttribute-{{i}}-{{j}}" [(disabled)]="!showDefinitions">Add Attribute</button>
+              <button type="button" (click)="removeAttribute($event)" id="removeAttribute-{{i}}-{{j}}" [(disabled)]="!showDefinitions">Remove Attribute</button>
             </td>
           </tr>
         </table>

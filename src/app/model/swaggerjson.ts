@@ -13,19 +13,25 @@ export class SwaggerJSON {
 
 export class Info {
     description: string;
-    version: string;
-    title: string;
+    version: string = '1.0';
+    title: string = 'Sample App';
 }
 
 export class Paths {
+}
+
+export class Path {
+}
+
+export class PathChild {
 }
 
 export class Get {
     tags: string[];
     summary: string;
     operationId: string;
-    consumes: string[];
-    produces: string[];
+    consumes: Array<string>  = new Array<string>();
+    produces: Array<string>  = new Array<string>();
     responses: Responses;
 }
 
@@ -33,8 +39,8 @@ export class Post {
     tags: string[];
     summary: string;
     operationId: string;
-    consumes: string[];
-    produces: string[];
+    consumes: Array<string>  = new Array<string>();
+    produces: Array<string>  = new Array<string>();
     parameters: Parameter[];
     responses: Responses;
 }
@@ -43,8 +49,8 @@ export class Put {
     tags: string[];
     summary: string;
     operationId: string;
-    consumes: string[];
-    produces: string[];
+    consumes: Array<string>  = new Array<string>();
+    produces: Array<string>  = new Array<string>();
     parameters: Parameter[];
     responses: Responses;
 }
@@ -52,8 +58,8 @@ export class Delete {
     tags: string[];
     summary: string;
     operationId: string;
-    consumes: string[];
-    produces: string[];
+    consumes: Array<string>  = new Array<string>();
+    produces: Array<string>  = new Array<string>();
     parameters: Parameter[];
     responses: Responses;
 }
@@ -65,8 +71,6 @@ export class Parameter {
     required: boolean;
     schema: Schema;
 }
-
-
 
 export class Schema {
     $ref: string;
@@ -99,7 +103,6 @@ export class Property {
     constructor(obj?: any) {
         this.type = obj && obj.type;
         this.format = obj && obj.format;
-        // this.format = obj && obj.format || undefined;
     }
 
 }
@@ -125,4 +128,15 @@ export class ControllerUIObject {
 export class PathUIObject {
     path: string = "";
     pathType: string = "get";
+    summary:string;
+    operationId:string;
+    consumes:string = "";
+    produces:string = "";
+}
+
+export class RequestMethods {
+    get: Get = new Get();
+    post: Post = new Post();
+    put: Put = new Put();
+    delete: Delete = new Delete();
 }
