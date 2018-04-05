@@ -3,7 +3,7 @@ import { VehicleService } from '../vehicle.service';
 import { Component, OnInit } from '@angular/core';
 import {
   SwaggerJSON, Definitions, Definition, Property, DefintionUIObject, Path, Paths, PathChild,
-  RequestMethods, PropertyUIObject, Tag, PathUIObject, ControllerUIObject
+  RequestMethods, PropertyUIObject, Tag, PathUIObject, ControllerUIObject, Response, Responses
 } from '../model/swaggerjson';
 
 @Component({
@@ -21,8 +21,10 @@ export class VehicleListComponent implements OnInit {
   mimetypes: any;
   objectTypes: any;
   dataTypes: any;
+  returnTypes; any;
   dataTypeJSON: any;
   requestMethodTypes: any;
+  returnTypeJSON: any;
   // definitionList = new Array<any>();
   definitionList = new Array<DefintionUIObject>(new DefintionUIObject());
   controllertNameArray = new Array<string>();
@@ -41,6 +43,8 @@ export class VehicleListComponent implements OnInit {
     this.dataTypes = this.vehicleService.getDataTypes();
     this.dataTypeJSON = this.vehicleService.getDataTypeJSON();
     this.requestMethodTypes = this.vehicleService.getRequestMethodTypes();
+    this.returnTypes = this.vehicleService.getReturnTypes();
+    this.returnTypeJSON = this.vehicleService.getReturnTypeJSON();
   }
 
   ngOnInit() {
@@ -75,6 +79,8 @@ export class VehicleListComponent implements OnInit {
 
             for (let pathObj of controllerObj.paths) {
               let reqMethods: RequestMethods = new RequestMethods();
+              let response: Response = new Response();
+              let responses: Responses = new Responses();
               let pathVal: string = pathObj.path && pathObj.path.trim() ? pathObj.path.trim() : "";
               let pathUIString: string = pathVal + '_' + pathObj.pathType;
               if (pathVal && pathUIStringArray.indexOf(pathUIString) == -1) {
@@ -94,6 +100,12 @@ export class VehicleListComponent implements OnInit {
                   pathsObj[pathVal] = new Path();
                   pathsObj[pathVal][pathObj.pathType] = reqMethods[pathObj.pathType];
                 }
+
+                response.description = "OK";
+                response.schema.type = this.returnTypeJSON[pathObj.returnType].type;
+                response.schema.format = this.returnTypeJSON[pathObj.returnType].format;
+                responses['200'] = response;
+                reqMethods[pathObj.pathType].responses = responses;
               }
             }
           }

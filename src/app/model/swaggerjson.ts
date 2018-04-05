@@ -73,10 +73,17 @@ export class Parameter {
 }
 
 export class Schema {
+    type:string;
+    format:string;
     $ref: string;
 }
 
 export class Responses {
+}
+
+export class Response {
+    description:string;
+    schema:Schema = new Schema();
 }
 
 export class Definitions {
@@ -132,6 +139,7 @@ export class PathUIObject {
     operationId:string;
     consumes:string = "";
     produces:string = "";
+    returnType:string = "void";
 }
 
 export class RequestMethods {

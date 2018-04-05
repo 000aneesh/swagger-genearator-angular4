@@ -106,6 +106,20 @@ const dataTypes = [
   'password',
 ];
 
+const returnTypes = [
+  'void',
+  'integer',
+  'long',
+  'float',
+  'double',
+  'string',
+  'byte',
+  'binary',
+  'boolean',
+  'date',
+  'dateTime'
+];
+
 
 const dataTypeJSON = {
   integer: {
@@ -154,6 +168,53 @@ const dataTypeJSON = {
   }
 };
 
+const returnTypeJSON = {
+  integer: {
+    type: 'integer',
+    format: 'int32'
+  },
+  long: {
+    type: 'integer',
+    format: 'int64'
+  },
+  float: {
+    type: 'number',
+    format: 'float'
+  },
+  double: {
+    type: 'number',
+    format: 'double'
+  },
+  string: {
+    type: 'string',
+    format: undefined
+  },
+  byte: {
+    type: 'string',
+    format: 'byte'
+  },
+  binary: {
+    type: 'string',
+    format: 'binary'
+  },
+  boolean: {
+    type: 'boolean',
+    format: undefined
+  },
+  date: {
+    type: 'string',
+    format: 'date'
+  },
+  dateTime: {
+    type: 'string',
+    format: 'date-time'
+  },
+  void: {
+    type: undefined,
+    format: undefined
+  }
+};
+
 const requestMethodTypes = [
   { key: "GET", value: "get" },
   { key: "POST", value: "post" },
@@ -170,6 +231,8 @@ export class VehicleService {
   private dataTypes;
   private dataTypeJSON;
   private requestMethodTypes;
+  private returnTypes;
+  private returnTypeJSON;
 
   constructor() {
     this.vehicles = vehicles;
@@ -178,6 +241,8 @@ export class VehicleService {
     this.dataTypes = dataTypes;
     this.dataTypeJSON = dataTypeJSON;
     this.requestMethodTypes = requestMethodTypes;
+    this.returnTypes = returnTypes;
+    this.returnTypeJSON = returnTypeJSON;
   }
 
   getVehicles() {
@@ -203,4 +268,13 @@ export class VehicleService {
   getRequestMethodTypes() {
     return this.requestMethodTypes;
   }
+
+  getReturnTypes() {
+    return this.returnTypes;
+  }
+
+  getReturnTypeJSON() {
+    return this.returnTypeJSON;
+  }
+
 }

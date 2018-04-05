@@ -79,6 +79,11 @@
         </select>
       </td>
     </tr>
+    <tr>
+      <th>
+        <div style="padding-top: 10px"></div>Controller</th>
+      <td><button type="button" (click)="addController($event)" id="addController">Add New Controller</button></td>
+    </tr>
     <tr *ngFor="let controllerObj of controllerObjArray; let i = index">
       <td>
         <label>({{i+1}}) Controller: </label>
@@ -86,7 +91,6 @@
       <td>
         <input [(ngModel)]="controllerObj.name" placeholder="Controller Name" />
         <input [(ngModel)]="controllerObj.description" placeholder="Controller Description" />
-        <button type="button" (click)="addController($event)" id="addController-{{i}}">Add Controller</button>
         <button type="button" (click)="removeController($event)" id="removeController-{{i}}">Remove Controller</button>
         <table>
           <tr *ngFor="let pathObj of controllerObj.paths; let j = index">
@@ -102,7 +106,6 @@
               <button type="button" (click)="removePath($event)" id="removePath-{{i}}-{{j}}">Remove Path</button>
               <br>
               <div style="padding-top: 5px"></div>
-
               <label>Consumes: </label>
               <select class="Opform-control" [(ngModel)]="pathObj.consumes">
           <option selected="" value="">Select One</option>
@@ -117,11 +120,17 @@
             {{mimetype.type}}
           </option>
         </select>
+              <div style="padding-top: 5px"></div>
+              <label>Return Type: </label>
+              <select class="Opform-control" [(ngModel)]="pathObj.returnType">
+          <option [ngValue]="returnType" *ngFor="let returnType of returnTypes">
+                  {{returnType}}
+                </option>
+              </select>
             </td>
           </tr>
-
         </table>
-
+        <div style="padding-bottom: 10px"></div>
       </td>
     </tr>
 
@@ -131,6 +140,7 @@
       </td>
       <td>
         <input type="checkbox" [(ngModel)]="showDefinitions" (change)=definitionCheckEvent($event) id="definitionCheck" />
+        <button type="button" (click)="addDefinition($event)" id="addDefinition" [(disabled)]="!showDefinitions">Add Class</button>
       </td>
     </tr>
     <tr *ngFor="let defn of definitionList; let i = index">
@@ -139,7 +149,6 @@
       </td>
       <td>
         <input placeholder="Class Name" [(ngModel)]="defn.defnName" [(readonly)]="!showDefinitions" />
-        <button type="button" (click)="addDefinition($event)" id="addDefinition-{{i}}" [(disabled)]="!showDefinitions">Add Class</button>
         <button type="button" (click)="removeDefinition($event)" id="removeDefinition-{{i}}" [(disabled)]="!showDefinitions">Remove Class</button>
         <table>
           <tr *ngFor="let prop of defn.properties; let j = index">
@@ -159,6 +168,7 @@
             </td>
           </tr>
         </table>
+        <div style="padding-bottom: 10px"></div>
       </td>
     </tr>
   </table>
